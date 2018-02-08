@@ -1,4 +1,5 @@
 import json
+import argparse
 from geopy.distance import vincenty
 
 
@@ -37,16 +38,20 @@ def get_bar_list(json_data):
 
 def get_bar_point(bar):
     longitude, latitude = bar['geometry']['coordinates']
-    bar_point = (longitude, latitude)
-    return bar_point
+    return longitude, latitude
 
 
 def get_bar_name(bar):
     return bar['properties']['Attributes']['Name']
 
 
+def get_commandline_arguments():
+    parser = argparse.ArgumentParser(description='Get the link to json file.')
+    parser.add_argument('filepath', type=str)
+    return parser.parse_args()
+
 if __name__ == '__main__':
-    json_data = load_data('bars.json')
+    json_data = load_data(get_commandline_arguments().filepath)
     bar_list = get_bar_list(json_data)
     try:
         user_longitude, user_latitude = map(
@@ -57,9 +62,12 @@ if __name__ == '__main__':
     except ValueError:
         exit('Need to enter two float values ')
     user_location = (user_longitude, user_latitude)
-    print('The biggest bar is', get_bar_name(get_biggest_bar(bar_list)))
-    print('The smallest bar is', get_bar_name(get_smallest_bar(bar_list)))
-    print('The closest bar is', get_bar_name(get_closest_bar(
-                                                             bar_list,
-                                                             user_location
-                                                             )))
+    print(
+        'The biggest bar is: {}\n'
+        'The smallest bar is: {}\n'
+        'The closest bar is: {}'.format(
+            get_bar_name(get_biggest_bar(bar_list)),
+            get_bar_name(get_smallest_bar(bar_list)),
+            get_bar_name(get_closest_bar(bar_list, user_location)),
+        )
+    )
