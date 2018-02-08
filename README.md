@@ -9,7 +9,7 @@
 pip install requirements.txt
 
 ```
-Также требуется скачанный [файл с данными о барах](https://devman.org/fshare/1503831681/4/), его необходимо положить в одну папку со скриптом.
+Также требуется скачанный [файл с данными о барах](https://devman.org/fshare/1503831681/4/), к нему необходимо прописать путь в коммандной строке, как в примере ниже.
 
 # Как запустить
 
@@ -17,7 +17,7 @@ pip install requirements.txt
 
 ```bash
 
-$ python bars.py # possibly requires call of python3 executive instead of just python
+$ python bars.py <json data filepath>
 Input longitude, latitude:37.635709999610876 55.805575000158532
 The biggest bar is Спорт бар «Красная машина»
 The smallest bar is БАР. СОКИ
