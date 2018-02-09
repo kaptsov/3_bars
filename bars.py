@@ -50,16 +50,15 @@ def get_commandline_arguments():
     parser.add_argument('filepath', type=str)
     return parser.parse_args()
 
-
 if __name__ == '__main__':
     json_data = load_data(get_commandline_arguments().filepath)
     bar_list = get_bar_list(json_data)
     try:
         user_longitude, user_latitude = map(
-                                            float,
-                                            input('Input longitude, latitude:')
-                                            .split()
-                                            )
+            float,
+            input('Input longitude, latitude:')
+            .split()
+        )
     except ValueError:
         exit('Need to enter two float values ')
     user_location = (user_longitude, user_latitude)
